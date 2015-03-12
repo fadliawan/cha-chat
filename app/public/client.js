@@ -10,6 +10,12 @@
   // Who?
   $('.name-form').on('submit', function() {
     currentUsername = $('.name-input').val();
+
+    if (!currentUsername) {
+      alert('Please enter a username!');
+      return false;
+    }
+
     socket.emit('new user', currentUsername);
 
     $(this).hide();
@@ -36,4 +42,5 @@
       $('<li/>').html(user + ' ' + msg + time)
     );
   });
+
 })();

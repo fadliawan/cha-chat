@@ -35,7 +35,7 @@
   io.on('connection', function(socket) {
     // User
     socket.on('new user', function(user) {
-      console.log(user + ' has joined');
+      console.log('\n' + user + ' has joined');
     });
 
     // Chat
