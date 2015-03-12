@@ -22,11 +22,13 @@
 
   // Chat page
   app.get('/chat', function(req, res) {
-    new Message().fetchAll().then(function(messages) {
+
+    getAllMessages().then(function(messages) {
       res.render('chat', { messages: messages.toJSON() });
     }, function() {
       console.log('Error loading messages.');
     });
+
   });
 
   // IO connection
@@ -37,18 +39,14 @@
     });
 
     // Chat
-    socket.on('incoming message', function(data) {
-      new Message({
-        username: data.username,
-        message: data.message,
-        sent_at: +new Date()
-      })
-      .save()
-      .then(function(message) {
+    socket.on('incoming message', function(message) {
+
+      saveMessage(message).then(function(message) {
         io.emit('new message from someone', message);
       }, function() {
         console.log('There was an error saving the message.');
       });
+
     });
   });
 
@@ -57,7 +55,22 @@
     var interfaces = os.networkInterfaces();
     var thisMachinesIP = interfaces.en0[1].address;
 
-    console.log('Listening on', [thisMachinesIP, CHAT_PORT].join(':'));
+    console.log('Listening on', [thisMachinesIP || 'localhost', CHAT_PORT].join(':'));
   });
+
+  /*===========================================*/
+
+  function getAllMessages() {
+    return new Message().fetchAll();
+  }
+
+  function saveMessage(message) {
+    return new Message({
+        username: message.username,
+        message: message.message,
+        sent_at: +new Date()
+      })
+      .save();
+  }
 
 })();
