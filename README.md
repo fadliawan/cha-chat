@@ -1,2 +1,3 @@
 # cha-chat
-Nothing to do here.
+
+Example chat app using React, Flux, and Socket.io.
