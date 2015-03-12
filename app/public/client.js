@@ -26,11 +26,12 @@
     return false;
   });
 
-  socket.on('new message from someone', function(data) {
-    var user = '<strong>' + data.username + '</strong>';
-    var msg = data.message;
+  socket.on('new message from someone', function(message) {
+    var user = '<strong>' + message.username + ':</strong>';
+    var msg = message.message;
+    var time = ' <span>' + new Date(message.sent_at).toLocaleTimeString() + '</span>';
     $('.messages').append(
-      $('<li/>').html(user + ': ' + msg)
+      $('<li/>').html(user + ' ' + msg + time)
     );
   });
 })(jQuery);

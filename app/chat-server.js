@@ -11,6 +11,8 @@
   var Message = models.Message;
 
   app.use(express.static('app/public'));
+  app.set('view engine', 'ejs');
+  app.set('views', __dirname+'/views');
 
   app.get('/', function(req, res) {
     res.send('Hello world!');
@@ -19,11 +21,10 @@
   // Chat page
   app.get('/chat', function(req, res) {
     new Message().fetchAll().then(function(messages) {
-      console.log(messages.toJSON());
+      res.render('chat', { messages: messages.toJSON() });
     }, function() {
       console.log('Error loading messages.');
     });
-    res.sendFile(__dirname + '/chat.html');
   });
 
   // IO connection
@@ -41,8 +42,8 @@
         sent_at: +new Date()
       })
       .save()
-      .then(function() {
-        io.emit('new message from someone', data);
+      .then(function(message) {
+        io.emit('new message from someone', message);
       }, function() {
         console.log('There was an error saving the message.');
       });
