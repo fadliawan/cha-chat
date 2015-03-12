@@ -2,6 +2,8 @@
 
   'use strict';
 
+  var CHAT_PORT = 3000;
+
   var express = require('express');
   var app = express();
   var http = require('http').Server(app);
@@ -50,8 +52,12 @@
     });
   });
 
-  http.listen(3000, function() {
-    console.log('listening on port 3000');
+  http.listen(CHAT_PORT, function() {
+    var os = require('os');
+    var interfaces = os.networkInterfaces();
+    var thisMachinesIP = interfaces.en0[1].address;
+
+    console.log('Listening on', [thisMachinesIP, CHAT_PORT].join(':'));
   });
 
 })();
