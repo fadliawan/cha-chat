@@ -1,6 +1,8 @@
-(function($) {
+(function() {
 
   'use strict';
+
+  var $ = require('jquery');
 
   var socket = io();
   var currentUsername = null;
@@ -34,4 +36,4 @@
       $('<li/>').html(user + ' ' + msg + time)
     );
   });
-})(jQuery);
+})();

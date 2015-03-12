@@ -3,9 +3,15 @@ module.exports = function(grunt) {
   'use strict';
 
   grunt.loadNpmTasks('grunt-express-server');
+  grunt.loadNpmTasks('grunt-browserify');
 
   grunt.initConfig({
-    express: {
+
+    'browserify': {
+      'app/public/main.js': 'app/public/client.js'
+    },
+
+    'express': {
       options: {
         background: false
       },
@@ -15,8 +21,11 @@ module.exports = function(grunt) {
         }
       }
     }
+
   });
 
-  grunt.registerTask('server', ['express:dev']);
+  grunt.registerTask('server', ['browserify', 'express:dev']);
+
+  grunt.registerTask('default', ['server']);
 
 };
