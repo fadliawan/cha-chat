@@ -20,10 +20,9 @@
 
   // IO connection
   io.on('connection', function(socket) {
-    console.log('a user connected');
-
-    socket.on('disconnect', function() {
-      console.log('a user disconnected');
+    // User
+    socket.on('new user', function(user) {
+      console.log(user + ' has joined');
     });
 
     // Chat

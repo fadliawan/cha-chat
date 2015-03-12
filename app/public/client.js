@@ -2,11 +2,13 @@
 
   'use strict';
 
+  var socket = io();
   var currentUsername = null;
 
   // Who?
   $('.name-form').on('submit', function() {
     currentUsername = $('.name-input').val();
+    socket.emit('new user', currentUsername);
 
     $(this).hide();
     $('.thread').show();
@@ -15,8 +17,6 @@
   });
 
   // Start chatting
-  var socket = io();
-
   $('.message-form').on('submit', function() {
     var $msgInput = $('.message-input');
     var msg = $msgInput.val();
