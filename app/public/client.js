@@ -3,8 +3,8 @@
   'use strict';
 
   var $ = require('jquery');
+  var socket = require('socket.io-client')();
 
-  var socket = io();
   var currentUsername = null;
 
   // Who?
@@ -34,7 +34,7 @@
     return false;
   });
 
-  socket.on('new message from someone', function(message) {
+  socket.on('new message', function(message) {
     var user = '<strong>' + message.username + ':</strong>';
     var msg = message.message;
     var time = ' <span>' + new Date(message.sent_at).toLocaleTimeString() + '</span>';

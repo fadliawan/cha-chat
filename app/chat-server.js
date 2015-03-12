@@ -42,7 +42,7 @@
     socket.on('incoming message', function(message) {
 
       saveMessage(message).then(function(message) {
-        io.emit('new message from someone', message);
+        io.emit('new message', message);
       }, function() {
         console.log('There was an error saving the message.');
       });
