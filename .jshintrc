@@ -87,6 +87,7 @@
         "require": true,
         "__dirname": true,
         "io": true,
-        "exports": true
+        "exports": true,
+        "module": true
     }        // additional predefined global variables
 }

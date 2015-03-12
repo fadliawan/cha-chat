@@ -26,5 +26,9 @@
     "knex": "^0.7.5",
     "mysql": "^2.5.5",
     "socket.io": "^1.3.5"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-express-server": "^0.4.19"
   }
 }
